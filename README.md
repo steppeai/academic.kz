@@ -34,7 +34,7 @@ backend/
 docs/
 
 
-## Roadmap (Week 3–11)
+## Execution Plan (Week 3–11)
 - Week 3–4: Programs dataset + catalog + filters
 - Week 5–6: Program pages + user profiles
 - Week 7–8: Checklist builder + deadlines tracker
