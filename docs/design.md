@@ -1,7 +1,7 @@
 # Design (Draft)
 
 ## Figma
-Link: [https://www.figma.com/files/team/1423337706337583144/project/285041375?fuid=1423337704174663504]
+Link: [https://www.figma.com/design/PRHAolfF5SxFnyLTWtoE11/Akademi.kz?node-id=0-1&t=IFCVtPgEal1oetui-1]
 
 ## Style direction
 - Clean, minimal, applicant-friendly
