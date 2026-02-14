@@ -1,7 +1,7 @@
 # Design (Draft)
 
 ## Figma
-Link: [FIGMA_LINK_HERE]
+Link: [https://www.figma.com/files/team/1423337706337583144/project/285041375?fuid=1423337704174663504]
 
 ## Style direction
 - Clean, minimal, applicant-friendly
