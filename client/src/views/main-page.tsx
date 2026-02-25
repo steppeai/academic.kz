@@ -1,9 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from 'next/link'
+import Link from "next/link";
 
-// --- Иконки (SVG) ---
 const SearchIcon = () => (
   <svg
     className="w-5 h-5"
@@ -69,14 +68,12 @@ export default function AcademiMainPage() {
   const [scrolled, setScrolled] = useState(false);
   const [showBolashakModal, setShowBolashakModal] = useState(false);
 
-  // Логика изменения хедера при скролле (от прозрачного к слегка размытому)
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Анимации
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -88,7 +85,6 @@ export default function AcademiMainPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-200">
-      {/* HEADER: Прозрачный по умолчанию, добавляет backdrop-blur при скролле */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
           scrolled
@@ -98,7 +94,7 @@ export default function AcademiMainPage() {
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center text-white">
           <div className="text-2xl font-bold tracking-tighter">
-            Academi<span className="text-blue-400">.kz</span>
+            Academik<span className="text-blue-400"></span>
           </div>
 
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
@@ -123,12 +119,10 @@ export default function AcademiMainPage() {
           </nav>
 
           <div className="flex items-center space-x-6">
-            {/* Выбор языка - добавлена недостающая функция */}
             <button className="hidden md:flex items-center space-x-1 hover:text-blue-300 transition-colors text-sm font-medium">
               <GlobeIcon />
               <span>RU</span>
             </button>
-            {/* Профиль / Вход */}
             <button className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full transition-all border border-white/20">
               <UserIcon />
               <span className="text-sm font-medium">Войти</span>
@@ -137,9 +131,7 @@ export default function AcademiMainPage() {
         </div>
       </header>
 
-      {/* HERO SECTION: Полноэкранный блок с фоновым изображением и минималистичным поиском */}
       <section className="relative h-screen flex flex-col justify-center items-center text-center px-6">
-        {/* Фоновое изображение высокого качества */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1592280771190-3e2e4d571952?q=80&w=1974&auto=format&fit=crop"
@@ -190,21 +182,19 @@ export default function AcademiMainPage() {
               </button>
             </div>
 
-            {/* Ссылка на расширенный поиск с фильтрами */}
             <div className="mt-4">
-              <a
-                href="#advanced-search"
+              <Link
+                href="/search"
                 className="text-gray-300 hover:text-white text-sm flex items-center justify-center space-x-1 transition-colors"
               >
                 <span>Или используйте расширенный поиск с фильтрами</span>
                 <ArrowRight />
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* PROMINENT БАННЕР БОЛАШАК: Журнальный стиль */}
       <section id="bolashak" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
@@ -214,7 +204,6 @@ export default function AcademiMainPage() {
             variants={fadeUp}
             className="flex flex-col lg:flex-row items-center gap-16"
           >
-            {/* Левая часть: Изображение */}
             <div className="w-full lg:w-1/2 relative">
               <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                 <img
@@ -223,7 +212,6 @@ export default function AcademiMainPage() {
                   className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
                 />
               </div>
-              {/* Плашка поверх фото */}
               <div className="absolute -bottom-8 -right-8 bg-blue-900 text-white p-8 rounded-3xl shadow-xl max-w-xs hidden md:block">
                 <div className="text-4xl font-bold mb-2">2026</div>
                 <div className="text-blue-200 text-sm">
@@ -232,7 +220,6 @@ export default function AcademiMainPage() {
               </div>
             </div>
 
-            {/* Правая часть: Контент */}
             <div className="w-full lg:w-1/2">
               <div className="inline-flex items-center space-x-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
                 <span>🇰🇿</span>
@@ -286,7 +273,6 @@ export default function AcademiMainPage() {
         </div>
       </section>
 
-      {/* ОСТАЛЬНЫЕ ФУНКЦИИ (Features) - Чистый, минималистичный дизайн */}
       <section className="py-24 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -300,7 +286,6 @@ export default function AcademiMainPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {/* Feature 1 */}
             <div className="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow border border-gray-100">
               <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6">
                 <SearchIcon />
@@ -312,7 +297,6 @@ export default function AcademiMainPage() {
               </p>
             </div>
 
-            {/* Feature 2 */}
             <div className="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow border border-gray-100">
               <div className="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-6">
                 <svg
@@ -336,7 +320,6 @@ export default function AcademiMainPage() {
               </p>
             </div>
 
-            {/* Feature 3 */}
             <div className="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow border border-gray-100">
               <div className="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mb-6">
                 <svg
@@ -363,7 +346,6 @@ export default function AcademiMainPage() {
         </div>
       </section>
 
-      {/* МОДАЛКА БОЛАШАК (Остается для демонстрации перехода) */}
       <AnimatePresence>
         {showBolashakModal && (
           <motion.div

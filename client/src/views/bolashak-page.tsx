@@ -3,10 +3,6 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { PlaneTakeoff, Scale, Wallet } from "lucide-react";
 
-// --- Иконки ---
-// --- ПРЕМИАЛЬНЫЕ ИКОНКИ (SVG) ---
-
-// Хедер
 export const UserIcon = ({ className = "w-5 h-5" }) => (
   <svg
     className={className}
@@ -39,7 +35,6 @@ export const GlobeIcon = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
-// Калькулятор и Списки
 export const CheckCircle = ({ className = "w-6 h-6" }) => (
   <svg
     className={className}
@@ -87,8 +82,6 @@ export const CalendarIcon = ({ className = "w-6 h-6" }) => (
     />
   </svg>
 );
-
-// --- ИКОНКИ ДЛЯ ТРЕБОВАНИЙ (Замена Эмодзи) ---
 
 export const AcademicCapIcon = ({ className = "w-8 h-8" }) => (
   <svg
@@ -153,7 +146,6 @@ export const EnvelopeOpenIcon = ({ className = "w-8 h-8" }) => (
     />
   </svg>
 );
-// --- Мок-данные университетов (Week 4 UI / Week 9 Prep) ---
 const MOCK_UNIVERSITIES = [
   {
     id: 1,
@@ -181,7 +173,6 @@ const MOCK_UNIVERSITIES = [
 export default function BolashakPage() {
   const [scrolled, setScrolled] = useState(false);
 
-  // Состояния калькулятора
   const [gpa, setGpa] = useState(3.0);
   const [ielts, setIelts] = useState(6.5);
   const [hasOffer, setHasOffer] = useState(false);
@@ -205,13 +196,12 @@ export default function BolashakPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-200">
-      {/* HEADER */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${scrolled ? "bg-black/70 backdrop-blur-md border-white/10 py-4" : "bg-transparent border-transparent py-6"}`}
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center text-white">
           <div className="text-2xl font-bold tracking-tighter cursor-pointer">
-            Academi<span className="text-blue-400">.kz</span>
+            Academik<span className="text-blue-400"></span>
           </div>
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
             <a href="/" className="hover:text-blue-300 transition-colors">
@@ -243,7 +233,6 @@ export default function BolashakPage() {
         </div>
       </header>
 
-      {/* HERO SECTION */}
       <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-32 flex flex-col justify-center items-center text-center px-6 bg-slate-900">
         <div className="absolute inset-0 z-0">
           <img
@@ -282,7 +271,6 @@ export default function BolashakPage() {
         </div>
       </section>
 
-      {/* 1. КРИТЕРИИ ОТБОРА И ТРЕБОВАНИЯ (Eligibility) - Явно выделенный блок */}
       <section className="relative z-20 py-16 px-6 max-w-7xl mx-auto -mt-20">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -348,7 +336,6 @@ export default function BolashakPage() {
         </motion.div>
       </section>
 
-      {/* 2. УМНЫЙ КАЛЬКУЛЯТОР (Delighter Feature) */}
       <section className="py-16 bg-gray-50 border-y border-gray-100">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center gap-12 bg-white rounded-3xl shadow-sm p-8 md:p-12 border border-gray-200">
@@ -460,7 +447,6 @@ export default function BolashakPage() {
         </div>
       </section>
 
-      {/* 3. РЕКОМЕНДОВАННЫЕ УНИВЕРСИТЕТЫ (Мок-данные) */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-end mb-12">
@@ -520,10 +506,8 @@ export default function BolashakPage() {
         </div>
       </section>
 
-      {/* 4. ИНФОРМАЦИЯ И СРОКИ */}
       <section className="py-24 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Левая колонка: Что покрывает грант */}
           <div>
             <h2 className="text-3xl font-bold mb-8">
               Условия и финансирование
@@ -575,7 +559,6 @@ export default function BolashakPage() {
             </div>
           </div>
 
-          {/* Правая колонка: Дедлайны (User Story 2) */}
           <div className="bg-slate-800 rounded-3xl p-8 border border-slate-700">
             <h2 className="text-2xl font-bold mb-2">Дедлайны приема 2026</h2>
             <p className="text-slate-400 mb-8">
