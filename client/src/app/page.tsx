@@ -1,3 +1,5 @@
+import AcademiMainPage from "@/views/main-page";
+
 export default function Home() {
-  return <div>Hello world</div>;
+  return <AcademiMainPage />;
 }

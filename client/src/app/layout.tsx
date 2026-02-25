@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import "./globals.css";
 
 const inter = Inter({
-  subsets: ["cyrillic"],
+  subsets: ["cyrillic","latin"],
 });
 
 export const metadata: Metadata = {
