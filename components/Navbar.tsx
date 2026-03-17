@@ -49,7 +49,7 @@ export function Navbar() {
                 className="font-display text-xl text-ink-900 tracking-tight"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Academi<span className="text-brand-600">.kz</span>
+                Academik<span className="text-brand-600">.kz</span>
               </span>
             </Link>
 
