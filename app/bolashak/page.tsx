@@ -72,7 +72,7 @@ export default function BolashakPage() {
 
   const eligible = answers.length===QUIZ.length && answers.every((a,i)=>a===QUIZ[i].correct);
   const passed = answers.filter((a,i)=>a===QUIZ[i].correct).length;
-  const answer = (a) => {
+  const answer = (a: number) => {
     const na=[...answers,a]; setAnswers(na);
     if(step<QUIZ.length-1) setTimeout(()=>setStep(s=>s+1),300);
     else setTimeout(()=>setDone(true),300);
