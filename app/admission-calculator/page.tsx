@@ -40,7 +40,7 @@ const getLabel = (c: number) => {
 export default function AdmissionCalculatorPage() {
   const [form,setForm] = useState<Record<string,string>>({gpa:"",ielts:"",toefl:"",gre:"",gmat:"",experience:"0",pubs:"no",region:"all"});
   const [done,setDone] = useState(false);
-  const [open,setOpen] = useState(null);
+  const [open,setOpen] = useState<number|null>(null);
   const set = (k: string, v: string) => setForm((p: any) =>({...p,[k]:v}));
   const INP = "w-full bg-ink-50 dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-xl px-3 py-2.5 text-sm text-ink-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500";
   const unis = UNIS
@@ -107,7 +107,7 @@ export default function AdmissionCalculatorPage() {
                 const ch=getLabel(uni.chance),isOpen=open===uni.id;
                 return (
                   <motion.div key={uni.id} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{delay:i*0.05}} className="bg-white dark:bg-ink-900 rounded-2xl border border-ink-200 dark:border-ink-800 overflow-hidden">
-                    <div className="p-4 cursor-pointer" onClick={()=>setOpen(isOpen?null:uni.id)}>
+                    <div className="p-4 cursor-pointer" onClick={()=>setOpen(isOpen?null:uni.id as number)}>
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3 flex-1 min-w-0">
                           <div className="w-8 h-8 rounded-lg bg-ink-100 dark:bg-ink-800 flex items-center justify-center text-xs font-bold text-ink-600 dark:text-ink-300 shrink-0">#{i+1}</div>
