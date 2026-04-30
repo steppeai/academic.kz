@@ -41,7 +41,7 @@ export default function AdmissionCalculatorPage() {
   const [form,setForm] = useState({gpa:"",ielts:"",toefl:"",gre:"",gmat:"",experience:"0",pubs:"no",region:"all"});
   const [done,setDone] = useState(false);
   const [open,setOpen] = useState(null);
-  const set = (k,v) => setForm(p=>({...p,[k]:v}));
+  const set = (k: string, v: string) => setForm((p: any) =>({...p,[k]:v}));
   const INP = "w-full bg-ink-50 dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-xl px-3 py-2.5 text-sm text-ink-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500";
   const unis = UNIS
     .filter(u=>form.region==="all"||(form.region==="kz"&&u.country==="Kazakhstan")||(form.region==="int"&&u.country!=="Kazakhstan"))
