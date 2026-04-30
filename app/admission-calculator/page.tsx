@@ -30,7 +30,7 @@ const calcChance = (uni: any, form: any) => {
   return Math.min(95,Math.max(2,Math.round(raw*0.7+raw*af*0.3)));
 };
 
-const getLabel = (c) => {
+const getLabel = (c: number) => {
   if(c>=70) return {text:"Высокие шансы",color:"text-emerald-600 dark:text-emerald-400",bar:"bg-emerald-500"};
   if(c>=45) return {text:"Средние шансы",color:"text-amber-600 dark:text-amber-400",bar:"bg-amber-500"};
   if(c>=20) return {text:"Низкие шансы",color:"text-orange-600 dark:text-orange-400",bar:"bg-orange-500"};
