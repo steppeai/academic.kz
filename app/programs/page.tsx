@@ -90,7 +90,7 @@ function ProgramsContent() {
                 ))}
               </div>
             </div>
-            {[["Направление", field, setField, FIELDS],["Страна", country, setCountry, COUNTRIES]].map(([label, val, setter, opts]) => (
+            {([["Направление", field, setField, FIELDS],["Страна", country, setCountry, COUNTRIES]] as [string, string, (v: string)=>void, string[]][]).map(([label, val, setter, opts]) => (
               <div key={label} className="mb-4">
                 <label className="block text-xs font-semibold text-ink-500 dark:text-ink-400 uppercase tracking-wider mb-2">{label}</label>
                 <select value={val} onChange={e => setter(e.target.value)} className="w-full bg-ink-50 dark:bg-ink-800 border border-ink-200 dark:border-ink-700 rounded-lg px-3 py-2 text-sm text-ink-800 dark:text-ink-200 focus:outline-none focus:ring-2 focus:ring-brand-500">

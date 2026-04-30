@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { MapPin, Clock, Star, Award, BarChart2, BookOpen, Globe } from "lucide-react";
@@ -18,7 +19,7 @@ function formatDeadline(d: any) {
 export function ApiProgramCard({ program: p, index = 0 }: { program: any; index?: number }) {
   const { items, add, remove } = useCompareStore();
   const isInCompare = items.some(x => x.id === String(p.id));
-  const toggle = (e) => {
+  const toggle = (e: React.MouseEvent) => {
     e.preventDefault(); e.stopPropagation();
     if (isInCompare) remove(String(p.id));
     else if (items.length < 3) add({ id: String(p.id), title: p.titleRu || p.title, university: p.universityName, city: p.city, language: p.language, cost: p.cost, costLabel: formatCost(p), deadline: p.deadline || "", deadlineLabel: formatDeadline(p.deadline), duration: p.duration || "2 года", bolashak: p.bolashak, tags: p.tags, description: p.description || "", requirements: p.requirements, documents: p.documents, rating: p.rating || 4.0, students: p.students || 0, field: p.field });
