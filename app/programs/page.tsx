@@ -15,13 +15,13 @@ function ProgramsContent() {
   const [debouncedQ, setDebouncedQ] = useState(params.get("q") || "");
   const [field, setField] = useState("Все направления");
   const [country, setCountry] = useState("Все страны");
-  const [langs, setLangs] = useState([]);
+  const [langs, setLangs] = useState<string[]>([]);
   const [bolashak, setBolashak] = useState(false);
   const [isKazakh, setIsKazakh] = useState("all");
   const [sortBy, setSortBy] = useState("rating");
   const [page, setPage] = useState(1);
-  const [programs, setPrograms] = useState([]);
-  const [meta, setMeta] = useState(null);
+  const [programs, setPrograms] = useState<any[]>([]);
+  const [meta, setMeta] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => { const t = setTimeout(() => { setDebouncedQ(query); setPage(1); }, 400); return () => clearTimeout(t); }, [query]);
@@ -46,7 +46,7 @@ function ProgramsContent() {
   }, [debouncedQ, field, country, langs, bolashak, isKazakh, sortBy, page]);
 
   useEffect(() => { fetchPrograms(); }, [fetchPrograms]);
-  const toggleLang = (l) => setLangs(prev => prev.includes(l) ? prev.filter(x => x !== l) : [...prev, l]);
+  const toggleLang = (l: string) => setLangs(prev => prev.includes(l) ? prev.filter(x => x !== l) : [...prev, l]);
   const resetFilters = () => { setQuery(""); setDebouncedQ(""); setField("Все направления"); setCountry("Все страны"); setLangs([]); setBolashak(false); setIsKazakh("all"); setSortBy("rating"); setPage(1); };
   const hasFilters = field !== "Все направления" || country !== "Все страны" || langs.length > 0 || bolashak || isKazakh !== "all";
 
