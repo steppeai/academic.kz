@@ -60,7 +60,7 @@ const QUIZ = [
 const COLORS: Record<string, string> = {emerald:"bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600",brand:"bg-brand-50 dark:bg-brand-500/10 text-brand-600",amber:"bg-amber-50 dark:bg-amber-500/10 text-amber-600",purple:"bg-purple-50 dark:bg-purple-500/10 text-purple-600",rose:"bg-rose-50 dark:bg-rose-500/10 text-rose-600",sky:"bg-sky-50 dark:bg-sky-500/10 text-sky-600"};
 
 export default function BolashakPage() {
-  const [programs,setPrograms] = useState<string[]>([]);
+  const [programs,setPrograms] = useState<any[]>([]);
   const [step,setStep] = useState(0);
   const [answers,setAnswers] = useState<string[]>([]);
   const [done,setDone] = useState(false);
