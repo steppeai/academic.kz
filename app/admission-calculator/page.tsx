@@ -38,7 +38,7 @@ const getLabel = (c: number) => {
 };
 
 export default function AdmissionCalculatorPage() {
-  const [form,setForm] = useState({gpa:"",ielts:"",toefl:"",gre:"",gmat:"",experience:"0",pubs:"no",region:"all"});
+  const [form,setForm] = useState<Record<string,string>>({gpa:"",ielts:"",toefl:"",gre:"",gmat:"",experience:"0",pubs:"no",region:"all"});
   const [done,setDone] = useState(false);
   const [open,setOpen] = useState(null);
   const set = (k: string, v: string) => setForm((p: any) =>({...p,[k]:v}));
