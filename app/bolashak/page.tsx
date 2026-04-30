@@ -64,7 +64,7 @@ export default function BolashakPage() {
   const [step,setStep] = useState(0);
   const [answers,setAnswers] = useState<string[]>([]);
   const [done,setDone] = useState(false);
-  const [openDoc,setOpenDoc] = useState("Основные");
+  const [openDoc,setOpenDoc] = useState<string|null>(null);
 
   useEffect(()=>{
     fetch("/api/programs?bolashak=true&limit=6&sort=rating").then(r=>r.json()).then(d=>setPrograms(d.data||[])).catch(()=>{});
