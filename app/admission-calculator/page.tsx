@@ -19,7 +19,7 @@ const UNIS = [
   {id:12,name:"Columbia",nameRu:"Колумбийский университет",country:"USA",minGPA:3.5,minIELTS:7.5,minTOEFL:105,requiresGRE:false,minGRE:0,requiresGMAT:true,minGMAT:720,avgGPA:3.7,avgIELTS:7.7,avgGRE:0,avgGMAT:730,acceptance:8,programId:16,tips:["GMAT 720+ у большинства принятых","Нужен опыт в финансах 2+ лет","Эссе о карьерных целях очень важно"]},
 ];
 
-const calcChance = (uni, form) => {
+const calcChance = (uni: any, form: any) => {
   let score=0,max=0;
   const gpa=parseFloat(form.gpa)||0; max+=30; if(gpa>=uni.avgGPA) score+=30; else if(gpa>=uni.minGPA) score+=30*((gpa-uni.minGPA)/(uni.avgGPA-uni.minGPA));
   const lang=Math.max(parseFloat(form.ielts)||0,(parseInt(form.toefl)||0)/14.7); max+=25; if(lang>=uni.avgIELTS) score+=25; else if(lang>=uni.minIELTS) score+=25*((lang-uni.minIELTS)/(uni.avgIELTS-uni.minIELTS));
