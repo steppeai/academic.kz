@@ -4,18 +4,18 @@ import { motion } from "motion/react";
 import { MapPin, Clock, Star, Award, BarChart2, BookOpen, Globe } from "lucide-react";
 import { useCompareStore } from "@/lib/compare-store";
 
-function formatCost(p) {
+function formatCost(p: any) {
   if (p.isKazakh) return p.cost.toLocaleString("ru") + " 000 ₸/год";
   if (p.costUsd === 0) return "Бесплатно";
   if (p.costUsd) return "$" + p.costUsd.toLocaleString("en") + "/год";
   return p.cost.toLocaleString("ru") + " 000 ₸/год";
 }
-function formatDeadline(d) {
+function formatDeadline(d: any) {
   if (!d) return "Уточняйте";
   return new Date(d).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
 }
 
-export function ApiProgramCard({ program: p, index = 0 }) {
+export function ApiProgramCard({ program: p, index = 0 }: { program: any; index?: number }) {
   const { items, add, remove } = useCompareStore();
   const isInCompare = items.some(x => x.id === String(p.id));
   const toggle = (e) => {
