@@ -27,9 +27,9 @@ const BOLASHAK_EXTRA = [
 
 export default function ChecklistPage() {
   const { token, isLoggedIn } = useAuthStore();
-  const [checked, setChecked] = useState([]);
+  const [checked, setChecked] = useState<string[]>([]);
   const [bolashakMode, setBolashakMode] = useState(false);
-  const [collapsed, setCollapsed] = useState([]);
+  const [collapsed, setCollapsed] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [savedMsg, setSavedMsg] = useState(false);
 
@@ -40,11 +40,11 @@ export default function ChecklistPage() {
     if (!isLoggedIn() || !token) return;
     fetch("/api/user/checklist", { headers: { Authorization: "Bearer " + token } })
       .then(r => r.json())
-      .then(d => { if (d.data?.length) setChecked(d.data.filter(i => i.isDone).map(i => i.docName)); })
+      .then((d: any) => { if (d.data?.length) setChecked(d.data.filter((i: any) => i.isDone).map((i: any) => i.docName)); })
       .catch(() => {});
   }, [token]);
 
-  const toggleDoc = async (id) => {
+  const toggleDoc = async (id: string) => {
     const newChecked = checked.includes(id) ? checked.filter(x => x !== id) : [...checked, id];
     setChecked(newChecked);
     if (isLoggedIn() && token) {
@@ -54,7 +54,7 @@ export default function ChecklistPage() {
     }
   };
 
-  const toggleCategory = (cat) => {
+  const toggleCategory = (cat: string) => {
     const catDocs = allDocs.filter(d => d.category === cat).map(d => d.id);
     const allCh = catDocs.every(id => checked.includes(id));
     if (allCh) setChecked(prev => prev.filter(id => !catDocs.includes(id)));
