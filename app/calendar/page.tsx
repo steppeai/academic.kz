@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { Calendar as CalendarIcon, ArrowRight, Award, Globe, Loader2 } from "lucide-react";
 
-const toGCal = (title, dateStr) => {
+const toGCal = (title: string, dateStr: string) => {
   const d = new Date(dateStr);
   const fmt = d => d.toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
   const end = new Date(d); end.setDate(end.getDate()+1);
