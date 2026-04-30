@@ -57,7 +57,7 @@ const QUIZ = [
   {q:"Готов вернуться и работать в Казахстане 5 лет?",opts:["Да, готов","Нет, не готов"],correct:"Да, готов"},
   {q:"Есть языковой сертификат (IELTS 6.0+, TOEFL 79+)?",opts:["Да, есть","Планирую сдать","Нет"],correct:"Да, есть"},
 ];
-const COLORS = {emerald:"bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600",brand:"bg-brand-50 dark:bg-brand-500/10 text-brand-600",amber:"bg-amber-50 dark:bg-amber-500/10 text-amber-600",purple:"bg-purple-50 dark:bg-purple-500/10 text-purple-600",rose:"bg-rose-50 dark:bg-rose-500/10 text-rose-600",sky:"bg-sky-50 dark:bg-sky-500/10 text-sky-600"};
+const COLORS: Record<string, string> = {emerald:"bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600",brand:"bg-brand-50 dark:bg-brand-500/10 text-brand-600",amber:"bg-amber-50 dark:bg-amber-500/10 text-amber-600",purple:"bg-purple-50 dark:bg-purple-500/10 text-purple-600",rose:"bg-rose-50 dark:bg-rose-500/10 text-rose-600",sky:"bg-sky-50 dark:bg-sky-500/10 text-sky-600"};
 
 export default function BolashakPage() {
   const [programs,setPrograms] = useState<string[]>([]);
