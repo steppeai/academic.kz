@@ -6,33 +6,33 @@ import { Calendar as CalendarIcon, ArrowRight, Award, Globe, Loader2 } from "luc
 
 const toGCal = (title: string, dateStr: string) => {
   const d = new Date(dateStr);
-  const fmt = d => d.toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
+  const fmt = (d: Date) => d.toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
   const end = new Date(d); end.setDate(end.getDate()+1);
   return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Дедлайн: "+title)+"&dates="+fmt(d)+"/"+fmt(end);
 };
-const daysLeft = d => Math.ceil((new Date(d)-Date.now())/(86400000));
-const fmtDate = d => new Date(d).toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric"});
+const daysLeft = (d: string) => Math.ceil((new Date(d).getTime()-Date.now())/(86400000));
+const fmtDate = (d: string) => new Date(d).toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric"});
 
 export default function CalendarPage() {
-  const [programs, setPrograms] = useState([]);
+  const [programs, setPrograms] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [bolashakOnly, setBolashakOnly] = useState(false);
 
   useEffect(() => {
     fetch("/api/programs?limit=100&sort=deadline")
-      .then(r=>r.json()).then(d=>setPrograms((d.data||[]).filter(p=>p.deadline)))
+      .then(r=>r.json()).then(d=>setPrograms((d.data||[]).filter((p: any)=>p.deadline)))
       .catch(()=>{}).finally(()=>setLoading(false));
   }, []);
 
   const filtered = programs
-    .filter(p => filter==="kz" ? p.isKazakh : filter==="foreign" ? !p.isKazakh : true)
-    .filter(p => bolashakOnly ? p.bolashak : true);
+    .filter((p: any) => filter==="kz" ? p.isKazakh : filter==="foreign" ? !p.isKazakh : true)
+    .filter((p: any) => bolashakOnly ? p.bolashak : true);
 
-  const grouped = filtered.reduce((acc,p) => {
+  const grouped = filtered.reduce((acc: Record<string,any[]>,p: any) => {
     const m = new Date(p.deadline).toLocaleDateString("ru-RU",{month:"long",year:"numeric"});
     (acc[m]=acc[m]||[]).push(p); return acc;
-  }, {});
+  }, {} as Record<string,any[]>);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
@@ -67,7 +67,7 @@ export default function CalendarPage() {
         </div>
       ) : (
         <div className="flex flex-col gap-8">
-          {Object.entries(grouped).map(([month,progs],gi) => (
+          {(Object.entries(grouped) as [string,any[]][]).map(([month,progs],gi) => (
             <motion.div key={month} initial={{opacity:0,y:12}} animate={{opacity:1,y:0}} transition={{delay:gi*0.08}}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center"><CalendarIcon className="w-4 h-4 text-white"/></div>
