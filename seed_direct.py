@@ -1,0 +1,180 @@
+import os, sys
+try:
+    import psycopg2
+except:
+    os.system(f"{sys.executable} -m pip install psycopg2-binary -q")
+    import psycopg2
+
+DB = os.environ.get("DATABASE_URL", "postgresql://abdugaffaromerbek@localhost:5432/academik")
+conn = psycopg2.connect(DB)
+cur = conn.cursor()
+print("Seeding...")
+cur.execute("DELETE FROM programs; DELETE FROM universities;")
+
+UNIS = [
+("Nazarbayev University","Назарбаев Университет","Astana","Kazakhstan","https://nu.edu.kz",True,229),
+("KBTU","Казахстанско-Британский технический университет","Almaty","Kazakhstan","https://kbtu.kz",True,801),
+("Al-Farabi KazNU","КазНУ им. аль-Фараби","Almaty","Kazakhstan","https://kaznu.kz",True,301),
+("Satbayev University","Университет Сатпаева","Almaty","Kazakhstan","https://satbayev.university",True,701),
+("KIMEP University","Университет КИМЭП","Almaty","Kazakhstan","https://kimep.kz",True,None),
+("SDU University","Университет Сулеймана Демиреля","Kaskelen","Kazakhstan","https://sdu.edu.kz",True,None),
+("Narxoz University","Университет Нархоз","Almaty","Kazakhstan","https://narxoz.kz",True,None),
+("AlmaU","Almaty Management University","Almaty","Kazakhstan","https://almau.edu.kz",True,None),
+("Turan University","Университет Туран","Almaty","Kazakhstan","https://turan-edu.kz",True,None),
+("IITU","Международный университет информационных технологий","Almaty","Kazakhstan","https://iitu.edu.kz",True,None),
+("ENU","ЕНУ им. Л.Н. Гумилёва","Astana","Kazakhstan","https://enu.kz",True,601),
+("Karaganda Technical University","Карагандинский технический университет","Karaganda","Kazakhstan","https://kstu.kz",True,None),
+("KGMU","Карагандинский медицинский университет","Karaganda","Kazakhstan","https://kgmu.kz",True,None),
+("West Kazakhstan University","ЗКУ им. М. Утемисова","Uralsk","Kazakhstan","https://wku.kz",True,None),
+("Alatau IT University","Alatau IT University","Almaty","Kazakhstan","https://aitu.edu.kz",True,None),
+("KazNAI","Казахская национальная академия искусств","Almaty","Kazakhstan","https://kaznai.kz",True,None),
+("MKTU","Международный казахско-турецкий университет","Turkestan","Kazakhstan","https://mktu.edu.kz",True,None),
+("Astana Medical University","Медицинский университет Астана","Astana","Kazakhstan","https://amu.kz",True,None),
+("KazUMO","КазУМОиМЯ им. Абылай хана","Almaty","Kazakhstan","https://ablaikhan.kz",True,None),
+("KRIU","Казахско-Российский международный университет","Aktobe","Kazakhstan","https://kriu.kz",True,None),
+("MIT","Массачусетский технологический институт","Cambridge","USA","https://mit.edu",False,1),
+("Stanford University","Стэнфордский университет","Stanford","USA","https://stanford.edu",False,5),
+("Harvard University","Гарвардский университет","Cambridge","USA","https://harvard.edu",False,4),
+("Columbia University","Колумбийский университет","New York","USA","https://columbia.edu",False,12),
+("NYU","Нью-Йоркский университет","New York","USA","https://nyu.edu",False,38),
+("UC Berkeley","Калифорнийский университет Беркли","Berkeley","USA","https://berkeley.edu",False,10),
+("Carnegie Mellon University","Университет Карнеги-Меллон","Pittsburgh","USA","https://cmu.edu",False,52),
+("UCLA","Университет Калифорнии, Лос-Анджелес","Los Angeles","USA","https://ucla.edu",False,44),
+("University of Pennsylvania","Университет Пенсильвании","Philadelphia","USA","https://upenn.edu",False,13),
+("Yale University","Йельский университет","New Haven","USA","https://yale.edu",False,16),
+("Duke University","Университет Дьюка","Durham","USA","https://duke.edu",False,66),
+("Johns Hopkins University","Университет Джонса Хопкинса","Baltimore","USA","https://jhu.edu",False,31),
+("Northwestern University","Северо-Западный университет","Evanston","USA","https://northwestern.edu",False,43),
+("University of Michigan","Мичиганский университет","Ann Arbor","USA","https://umich.edu",False,33),
+("Purdue University","Университет Пердью","West Lafayette","USA","https://purdue.edu",False,99),
+("University of Wisconsin","Университет Висконсин","Madison","USA","https://wisc.edu",False,125),
+("Arizona State University","Государственный университет Аризоны","Tempe","USA","https://asu.edu",False,216),
+("Georgetown University","Джорджтаунский университет","Washington D.C.","USA","https://georgetown.edu",False,284),
+("Vanderbilt University","Университет Вандербильта","Nashville","USA","https://vanderbilt.edu",False,186),
+("Emory University","Университет Эмори","Atlanta","USA","https://emory.edu",False,237),
+("University of Oxford","Оксфордский университет","Oxford","UK","https://ox.ac.uk",False,3),
+("University of Cambridge","Кембриджский университет","Cambridge","UK","https://cam.ac.uk",False,2),
+("Imperial College London","Имперский колледж Лондона","London","UK","https://imperial.ac.uk",False,8),
+("UCL","Университетский колледж Лондона","London","UK","https://ucl.ac.uk",False,9),
+("LSE","Лондонская школа экономики","London","UK","https://lse.ac.uk",False,45),
+("University of Edinburgh","Эдинбургский университет","Edinburgh","UK","https://ed.ac.uk",False,27),
+("University of Manchester","Манчестерский университет","Manchester","UK","https://manchester.ac.uk",False,34),
+("Kings College London","Королевский колледж Лондона","London","UK","https://kcl.ac.uk",False,40),
+("University of Warwick","Уорикский университет","Coventry","UK","https://warwick.ac.uk",False,69),
+("University of Bristol","Бристольский университет","Bristol","UK","https://bristol.ac.uk",False,55),
+("Durham University","Даремский университет","Durham","UK","https://dur.ac.uk",False,95),
+("University of Glasgow","Университет Глазго","Glasgow","UK","https://gla.ac.uk",False,77),
+("University of Leeds","Университет Лидса","Leeds","UK","https://leeds.ac.uk",False,90),
+("University of Nottingham","Ноттингемский университет","Nottingham","UK","https://nottingham.ac.uk",False,104),
+("University of Sheffield","Шеффилдский университет","Sheffield","UK","https://sheffield.ac.uk",False,113),
+("TU Munich","Технический университет Мюнхена","Munich","Germany","https://tum.de",False,37),
+("LMU Munich","Университет Людвига-Максимилиана","Munich","Germany","https://lmu.de",False,63),
+("Humboldt University Berlin","Университет Гумбольдта","Berlin","Germany","https://hu-berlin.de",False,120),
+("Heidelberg University","Гейдельбергский университет","Heidelberg","Germany","https://uni-heidelberg.de",False,87),
+("RWTH Aachen","РВТХ Аахен","Aachen","Germany","https://rwth-aachen.de",False,106),
+("University of Hamburg","Гамбургский университет","Hamburg","Germany","https://uni-hamburg.de",False,179),
+("Goethe University Frankfurt","Университет Гёте во Франкфурте","Frankfurt","Germany","https://uni-frankfurt.de",False,317),
+("University of Stuttgart","Штутгартский университет","Stuttgart","Germany","https://uni-stuttgart.de",False,344),
+("University of Cologne","Кёльнский университет","Cologne","Germany","https://uni-koeln.de",False,222),
+("TU Dresden","Дрезденский технический университет","Dresden","Germany","https://tu-dresden.de",False,202),
+("University of Toronto","Университет Торонто","Toronto","Canada","https://utoronto.ca",False,25),
+("UBC","Университет Британской Колумбии","Vancouver","Canada","https://ubc.ca",False,38),
+("McGill University","Университет Макгилла","Montreal","Canada","https://mcgill.ca",False,30),
+("University of Waterloo","Университет Ватерлоо","Waterloo","Canada","https://uwaterloo.ca",False,154),
+("Queens University","Королевский университет","Kingston","Canada","https://queensu.ca",False,246),
+("University of Alberta","Университет Альберты","Edmonton","Canada","https://ualberta.ca",False,111),
+("McMaster University","Университет Макмастера","Hamilton","Canada","https://mcmaster.ca",False,189),
+("University of Calgary","Университет Калгари","Calgary","Canada","https://ucalgary.ca",False,235),
+("TU Delft","Делфтский технический университет","Delft","Netherlands","https://tudelft.nl",False,57),
+("University of Amsterdam","Амстердамский университет","Amsterdam","Netherlands","https://uva.nl",False,58),
+("Leiden University","Лейденский университет","Leiden","Netherlands","https://leiden.edu",False,128),
+("Utrecht University","Утрехтский университет","Utrecht","Netherlands","https://uu.nl",False,96),
+("University of Groningen","Гронингенский университет","Groningen","Netherlands","https://rug.nl",False,186),
+("University of Melbourne","Мельбурнский университет","Melbourne","Australia","https://unimelb.edu.au",False,13),
+("ANU","Австралийский национальный университет","Canberra","Australia","https://anu.edu.au",False,30),
+("University of Sydney","Сиднейский университет","Sydney","Australia","https://sydney.edu.au",False,18),
+("University of Queensland","Квинслендский университет","Brisbane","Australia","https://uq.edu.au",False,40),
+("Monash University","Университет Монаш","Melbourne","Australia","https://monash.edu",False,57),
+("NUS","Национальный университет Сингапура","Singapore","Singapore","https://nus.edu.sg",False,8),
+("NTU Singapore","Наньянский технологический университет","Singapore","Singapore","https://ntu.edu.sg",False,15),
+("Seoul National University","Сеульский национальный университет","Seoul","South Korea","https://snu.ac.kr",False,31),
+("KAIST","Корейский институт науки и технологий","Daejeon","South Korea","https://kaist.ac.kr",False,65),
+("University of Tokyo","Токийский университет","Tokyo","Japan","https://u-tokyo.ac.jp",False,28),
+("Kyoto University","Университет Киото","Kyoto","Japan","https://kyoto-u.ac.jp",False,46),
+("Tsinghua University","Университет Цинхуа","Beijing","China","https://tsinghua.edu.cn",False,25),
+("Fudan University","Университет Фудань","Shanghai","China","https://fudan.edu.cn",False,64),
+("HKU","Университет Гонконга","Hong Kong","Hong Kong","https://hku.hk",False,26),
+("HKUST","Университет науки и технологий Гонконга","Hong Kong","Hong Kong","https://ust.hk",False,47),
+("ETH Zurich","ЕТН Цюрих","Zurich","Switzerland","https://ethz.ch",False,7),
+("EPFL","Федеральная политехническая школа Лозанны","Lausanne","Switzerland","https://epfl.ch",False,17),
+("KU Leuven","Католический университет Лёвена","Leuven","Belgium","https://kuleuven.be",False,75),
+("University of Copenhagen","Копенгагенский университет","Copenhagen","Denmark","https://ku.dk",False,92),
+("University of Helsinki","Хельсинкский университет","Helsinki","Finland","https://helsinki.fi",False,107),
+("University of Vienna","Венский университет","Vienna","Austria","https://univie.ac.at",False,187),
+("Aalto University","Университет Аалто","Espoo","Finland","https://aalto.fi",False,115),
+]
+
+cur.executemany("INSERT INTO universities (name,name_ru,city,country,website,is_kazakh,ranking) VALUES (%s,%s,%s,%s,%s,%s,%s)", UNIS)
+conn.commit()
+cur.execute("SELECT id,name FROM universities")
+unis = {r[1]:r[0] for r in cur.fetchall()}
+print(f"Universities: {len(unis)}")
+
+PROGS = [
+("Nazarbayev University","Computer Science & AI","Компьютерные науки и ИИ","IT",["English"],2100,None,"2025-05-15",True,4.9,800),
+("Nazarbayev University","MBA","MBA — Управление бизнесом","Business",["English"],2400,None,"2025-06-01",True,4.8,600),
+("KBTU","International Business","Международный бизнес и менеджмент","Business",["English","Kazakh"],1800,None,"2025-06-15",True,4.8,1200),
+("KBTU","Oil and Gas Engineering","Нефтегазовая инженерия","Engineering",["English"],2000,None,"2025-05-30",True,4.7,400),
+("Al-Farabi KazNU","International Law","Юриспруденция — Международное право","Law",["Kazakh","Russian"],900,None,"2025-07-01",False,4.5,2000),
+("Al-Farabi KazNU","Data Science","Наука о данных и аналитика","IT",["Kazakh","Russian","English"],950,None,"2025-06-20",True,4.6,500),
+("Satbayev University","Mining Engineering","Горное дело","Engineering",["Kazakh","Russian"],800,None,"2025-07-15",True,4.4,600),
+("KIMEP University","Finance","Финансы","Finance",["English"],1500,None,"2025-06-30",False,4.6,800),
+("Narxoz University","Economics","Экономика","Economics",["Kazakh","Russian","English"],750,None,"2025-08-01",False,4.3,1000),
+("IITU","Software Engineering","Программная инженерия","IT",["English","Kazakh"],1100,None,"2025-06-01",True,4.5,300),
+("ENU","Public Administration","Государственное управление","Public Policy",["Kazakh","Russian"],700,None,"2025-07-20",False,4.3,800),
+("Alatau IT University","AI & Robotics","ИИ и робототехника","IT",["English","Kazakh"],1200,None,"2025-05-20",True,4.7,150),
+("MIT","MSc Computer Science","Магистр компьютерных наук","IT",["English"],55000,55000,"2024-12-15",True,5.0,300),
+("Stanford University","MS Artificial Intelligence","Магистр ИИ","IT",["English"],60000,60000,"2024-12-01",True,5.0,200),
+("Harvard University","Master of Public Health","Магистр общественного здравоохранения","Medicine",["English"],52000,52000,"2024-12-15",True,4.9,400),
+("Columbia University","MS Financial Economics","Магистр финансовой экономики","Finance",["English"],62000,62000,"2025-01-05",True,4.9,250),
+("Carnegie Mellon University","MSc Electrical Engineering","Магистр электроинженерии","Engineering",["English"],53000,53000,"2024-12-01",True,4.9,350),
+("Yale University","Master of Laws LLM","Магистр права (LLM)","Law",["English"],68000,68000,"2025-02-01",True,4.9,200),
+("Johns Hopkins University","MPH Global Health","Магистр глобального здоровья","Medicine",["English"],55000,55000,"2025-01-15",True,4.9,300),
+("University of Oxford","MSc Computer Science","Магистр компьютерных наук","IT",["English"],40000,40000,"2025-01-10",True,5.0,150),
+("University of Cambridge","MPhil Engineering","Магистр инженерии","Engineering",["English"],38000,38000,"2025-01-05",True,5.0,200),
+("Imperial College London","MSc Artificial Intelligence","Магистр ИИ","IT",["English"],36000,36000,"2025-01-15",True,4.9,250),
+("LSE","MSc Economics","Магистр экономики","Economics",["English"],34000,34000,"2025-01-20",True,4.9,400),
+("University of Edinburgh","MSc Data Science","Магистр Data Science","IT",["English"],26000,26000,"2025-03-15",True,4.7,200),
+("TU Munich","MSc Informatics","Магистр информатики","IT",["English"],600,600,"2025-05-31",True,4.9,500),
+("TU Munich","MSc Electrical Engineering","Магистр электроинженерии","Engineering",["English","German"],600,600,"2025-05-31",True,4.8,400),
+("RWTH Aachen","MSc Computer Science","Магистр информатики","IT",["English"],0,0,"2025-04-15",True,4.7,600),
+("University of Toronto","MS Computer Science","Магистр компьютерных наук","IT",["English"],14000,14000,"2025-01-15",True,4.9,400),
+("McGill University","MEng Computer Engineering","Магистр компьютерной инженерии","Engineering",["English"],15000,15000,"2025-01-10",True,4.8,300),
+("University of Waterloo","Master of Data Science","Магистр Data Science","IT",["English"],16000,16000,"2025-02-01",True,4.8,200),
+("NUS","MS Computer Science","Магистр компьютерных наук","IT",["English"],22000,22000,"2025-02-28",True,4.9,500),
+("University of Tokyo","MS Electrical Engineering","Магистр электроинженерии","Engineering",["English"],8000,8000,"2025-03-31",True,4.8,200),
+("Tsinghua University","MSc Computer Science","Магистр информатики","IT",["English"],10000,10000,"2025-03-15",True,4.8,400),
+("ETH Zurich","MSc Computer Science","Магистр компьютерных наук","IT",["English"],1500,1500,"2025-12-01",True,5.0,300),
+("EPFL","MSc Data Science","Магистр Data Science","IT",["English"],1500,1500,"2025-11-15",True,4.9,250),
+("TU Delft","MSc Computer Science","Магистр компьютерных наук","IT",["English"],18000,18000,"2025-04-01",True,4.8,400),
+("University of Amsterdam","MSc Artificial Intelligence","Магистр ИИ","IT",["English"],14000,14000,"2025-05-01",True,4.7,300),
+("University of Melbourne","Master of IT","Магистр информационных технологий","IT",["English"],32000,32000,"2025-05-30",False,4.7,600),
+("AlmaU","Accounting and Audit","Бухгалтерский учёт и аудит","Finance",["Kazakh","Russian"],1100,None,"2025-07-01",False,4.5,700),
+("SDU University","Computer Science","Компьютерные науки","IT",["English","Kazakh"],1300,None,"2025-06-10",True,4.6,250),
+("Karaganda Technical University","Civil Engineering","Строительство и архитектура","Engineering",["Kazakh","Russian"],780,None,"2025-08-15",False,4.3,500),
+("KGMU","Medicine Pediatrics","Медицина — Педиатрия","Medicine",["Kazakh","Russian"],1200,None,"2025-07-30",False,4.4,400),
+("West Kazakhstan University","Environmental Engineering","Экологическая инженерия","Engineering",["Kazakh","Russian"],650,None,"2025-08-01",False,4.2,300),
+("MKTU","Turkic Linguistics","Тюркология и казахское языкознание","Humanities",["Kazakh","Turkish"],500,None,"2025-08-20",False,4.1,200),
+("Astana Medical University","Healthcare Management","Медсестринское дело и управление","Medicine",["Kazakh","Russian"],900,None,"2025-07-25",False,4.3,350),
+]
+
+for uni,title,title_ru,field,langs,cost,cost_usd,deadline,bolashak,rating,students in PROGS:
+    uid = unis.get(uni)
+    if uid:
+        cur.execute("INSERT INTO programs (title,title_ru,university_id,field,language,cost,cost_usd,deadline,bolashak,rating,students,tags,requirements,documents) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(title,title_ru,uid,field,langs,cost,cost_usd,deadline,bolashak,rating,students,[],[],[]))
+
+conn.commit()
+cur.execute("SELECT COUNT(*) FROM universities"); print("Universities:", cur.fetchone()[0])
+cur.execute("SELECT COUNT(*) FROM programs"); print("Programs:", cur.fetchone()[0])
+print("Done!")
+conn.close()

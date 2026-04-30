@@ -1,0 +1,8 @@
+export type ApiProgram = { id: number; title: string; titleRu: string | null; field: string; language: string[]; cost: number; costUsd: number | null; duration: string | null; deadline: string | null; bolashak: boolean; tags: string[]; description: string | null; requirements: string[]; documents: string[]; rating: number | null; students: number | null; universityId: number; universityName: string; city: string; country: string; isKazakh: boolean; ranking: number | null; website: string | null; };
+export type ApiMeta = { total: number; page: number; limit: number; pages: number; };
+export function formatCost(p: ApiProgram): string { if (p.isKazakh) return p.cost.toLocaleString("ru") + " 000 ₸/год"; if (p.costUsd === 0) return "Бесплатно"; if (p.costUsd) return "$" + p.costUsd.toLocaleString("en") + "/год"; return p.cost.toLocaleString("ru") + " 000 ₸/год"; }
+export function formatDeadline(d: string | null): string { if (!d) return "Уточняйте"; return new Date(d).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" }); }
+export const CITIES_API = ["Все города","Almaty","Astana","Karaganda","Cambridge","Stanford","New York","London","Oxford","Munich","Toronto","Singapore","Zurich"];
+export const FIELDS_API = ["Все направления","IT","Business","Finance","Law","Medicine","Engineering","Economics","Public Policy","Humanities"];
+export const LANGUAGES_API = ["English","Kazakh","Russian","German","Turkish"];
+export const COUNTRIES_API = ["Все страны","Kazakhstan","USA","UK","Germany","Canada","Netherlands","Australia","Singapore","South Korea","Japan","China","Switzerland"];
